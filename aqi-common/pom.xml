@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>aqi</artifactId>
+        <groupId>com.aqi</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>aqi-common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>aqi-common-core</module>
+        <module>aqi-common-doc</module>
+        <module>aqi-common-log</module>
+        <module>aqi-common-mybatis</module>
+        <module>aqi-common-redis</module>
+        <module>aqi-common-secure</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+</project>

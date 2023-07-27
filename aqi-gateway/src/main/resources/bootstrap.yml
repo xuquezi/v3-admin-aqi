@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: aqi-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.53.251:8848
+        namespace: v3-admin
+      config:
+        server-addr: 192.168.53.251:8848 # 配置中心的地址
+        namespace: v3-admin
+        file-extension: yaml # 执行yaml格式的配置
+        prefix: aqi-gateway
