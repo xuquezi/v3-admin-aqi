@@ -15,7 +15,7 @@ public class Meta implements Serializable {
     private String title;
 
     @ApiModelProperty(value = "路由的图标")
-    private String icon;
+    private String svgIcon;
 
 
     @ApiModelProperty(value = "是否隐藏")

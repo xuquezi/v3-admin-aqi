@@ -87,7 +87,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                     route.setRedirect(menu.getRedirect());
                     Meta meta = new Meta();
                     meta.setTitle(menu.getMenuName());
-                    meta.setIcon(menu.getMenuIcon());
+                    meta.setSvgIcon(menu.getMenuIcon());
                     meta.setHidden(CommonConstant.HIDDEN.equals(menu.getMenuVisible()));
                     meta.setKeepAlive(true);
                     route.setMeta(meta);
