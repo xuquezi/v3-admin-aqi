@@ -110,6 +110,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         validateUpdateUser(sysUserDTO);
         SysUser sysUser = BeanCopyUtils.copy(sysUserDTO, SysUser.class);
+        sysUser.setUserPassword(null);
         updateById(sysUser);
 
         // 配置角色先删除对应角色再重新添加
