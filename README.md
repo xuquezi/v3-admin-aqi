@@ -300,7 +300,7 @@ pnpm dev
 
 4、启动项目
 
-启动AQIJobApplication、AQIAdminApplication、AQIFlowApplication、AQIGatewayApplication。启动顺序不分先后。
+启动AQIJobApplication、AQIAdminApplication、AQIGatewayApplication。启动顺序不分先后。
 
 AQIProviderApplication为对外提供接口的服务，如果对外无需提供接口服务可以不启动。
 
