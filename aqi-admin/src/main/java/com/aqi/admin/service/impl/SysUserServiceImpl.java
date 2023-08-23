@@ -44,9 +44,24 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private RedisUtils redisUtils;
 
+    // 账号锁定30分钟
+    private static int LOCK_TIME = 30;
+
 
     @Override
     public String login(LoginDTO loginDTO) {
+        // 新增密码锁定校验
+        //登录进来，第一步判断账户是否锁定
+        Object lock = redisUtils.get(CacheConstant.USER_LOCK + loginDTO.getUsername());
+        if (lock != null && "lock".equals(lock.toString())) {
+            throw new RuntimeException("该帐号登录已锁定,请 " + LOCK_TIME + "分钟后再试！");
+        }
+        //第二步判断是否错误次数达到五次，如果达到5次，那就锁定账户，锁定值为lock，锁定时间30分钟
+        Object lockTimes = redisUtils.get(CacheConstant.USER_LOCK_TIMES + loginDTO.getUsername());
+        if (lockTimes != null && "5".equals(lockTimes.toString())) {
+            redisUtils.set(CacheConstant.USER_LOCK + loginDTO.getUsername(), "lock", 30 * 60);
+            throw new RuntimeException("该帐号登录已锁定,请 " + LOCK_TIME + "分钟后再试！");
+        }
         // 校验验证码
         String code = loginDTO.getCode();
         String key = loginDTO.getKey();
@@ -68,7 +83,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new RuntimeException("对不起，您的账号：" + username + " 已停用");
         }
         if (!SecureUtil.matchesPassword(loginDTO.getPassword(), sysUser.getUserPassword())) {
-            throw new RuntimeException("密码错误");
+            if (redisUtils.exists(CacheConstant.USER_LOCK_TIMES + loginDTO.getUsername())) {
+                String num = (String) redisUtils.get(CacheConstant.USER_LOCK_TIMES + loginDTO.getUsername());
+                int i = Integer.parseInt(num);
+                i = i + 1;
+                redisUtils.set(CacheConstant.USER_LOCK_TIMES + loginDTO.getUsername(), String.valueOf(i), 60 * 5);
+            } else {
+                redisUtils.set(CacheConstant.USER_LOCK_TIMES + loginDTO.getUsername(), "1", 60 * 5);
+            }
+
+            throw new RuntimeException("密码错误,第 " + redisUtils.get(CacheConstant.USER_LOCK_TIMES + loginDTO.getUsername()) + " 次登录失败");
         }
         SystemUser systemUser = this.convertSystemUser(sysUser);
         String token = createToken(systemUser);
