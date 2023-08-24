@@ -12,7 +12,7 @@
  Target Server Version : 120011
  File Encoding         : 65001
 
- Date: 22/08/2023 16:41:43
+ Date: 24/08/2023 14:31:05
 */
 
 
@@ -238,6 +238,36 @@ COMMENT ON COLUMN "public"."sys_log"."visit_time" IS '访问时间';
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
+INSERT INTO "public"."sys_log" VALUES (1694546725550206977, 3938, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:06:33.238');
+INSERT INTO "public"."sys_log" VALUES (1694547203025580034, 47599, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:07:43.428');
+INSERT INTO "public"."sys_log" VALUES (1694547380415279106, 26199, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:08:47.121');
+INSERT INTO "public"."sys_log" VALUES (1694547736318730242, 50, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:10:38.113');
+INSERT INTO "public"."sys_log" VALUES (1694548222736359426, 93548, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:11:00.591');
+INSERT INTO "public"."sys_log" VALUES (1694549688364589058, 86974, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:16:56.599');
+INSERT INTO "public"."sys_log" VALUES (1694550663431217153, 65816, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:21:10.231');
+INSERT INTO "public"."sys_log" VALUES (1694550799154700289, 29, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:22:48.387');
+INSERT INTO "public"."sys_log" VALUES (1694550974950563841, 37362, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:22:52.959');
+INSERT INTO "public"."sys_log" VALUES (1694551038846590978, 8659, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:23:36.9');
+INSERT INTO "public"."sys_log" VALUES (1694551290626465793, 31, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:24:45.564');
+INSERT INTO "public"."sys_log" VALUES (1694551506897362946, 38663, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 11:24:58.484');
+INSERT INTO "public"."sys_log" VALUES (1694577946271444993, 58, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:10:40.719');
+INSERT INTO "public"."sys_log" VALUES (1694578040962052097, 30, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:11:03.334');
+INSERT INTO "public"."sys_log" VALUES (1694578106191867905, 31, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:11:18.895');
+INSERT INTO "public"."sys_log" VALUES (1694578498652893186, 51667, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:12:00.814');
+INSERT INTO "public"."sys_log" VALUES (1694579046579990529, 55977, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:14:07.14');
+INSERT INTO "public"."sys_log" VALUES (1694579909046333442, 33565, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:17:55.181');
+INSERT INTO "public"."sys_log" VALUES (1694581009753333762, 117, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:22:51.05');
+INSERT INTO "public"."sys_log" VALUES (1694581064459640834, 37, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:23:04.182');
+INSERT INTO "public"."sys_log" VALUES (1694581131446870018, 29, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:23:20.169');
+INSERT INTO "public"."sys_log" VALUES (1694581150933606402, 30, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:23:24.818');
+INSERT INTO "public"."sys_log" VALUES (1694583643046436865, 55, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:33:18.938');
+INSERT INTO "public"."sys_log" VALUES (1694583655721623553, 30, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:33:22.004');
+INSERT INTO "public"."sys_log" VALUES (1694583681252352002, 33, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUser', '/user/updateUser', 'zhong', '2023-08-24 13:33:28.087');
+INSERT INTO "public"."sys_log" VALUES (1694592183748288513, 34, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] createUser', '/user/createUser', 'zhong', '2023-08-24 14:07:15.241');
+INSERT INTO "public"."sys_log" VALUES (1694592313612328962, 7, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUserProfile', '/user/updateUserProfile', 'zhong', '2023-08-24 14:07:46.223');
+INSERT INTO "public"."sys_log" VALUES (1694592355278544897, 8, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUserProfile', '/user/updateUserProfile', 'zhong', '2023-08-24 14:07:56.156');
+INSERT INTO "public"."sys_log" VALUES (1694592388208025601, 8, '127.0.0.1', '[类名] com.aqi.admin.controller.SysUserController[方法名] updateUserProfile', '/user/updateUserProfile', 'zhong', '2023-08-24 14:08:04.015');
+INSERT INTO "public"."sys_log" VALUES (1694593440441458690, 16, '127.0.0.1', '[类名] com.aqi.admin.controller.SysRoleController[方法名] updateRole', '/role/updateRole', 'zhong', '2023-08-24 14:12:14.872');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -364,8 +394,8 @@ COMMENT ON TABLE "public"."sys_role" IS '系统角色表';
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO "public"."sys_role" VALUES (1589911702990249985, '超级管理员', 'admin', '0', NULL, NULL, 'zhong', '2023-07-07 13:02:14.097', 0);
 INSERT INTO "public"."sys_role" VALUES (1676408833992843265, '测试角色', 'test', '0', 'zhong', '2023-07-05 09:53:06.874', 'zhong', '2023-07-07 15:01:41.883', 1);
+INSERT INTO "public"."sys_role" VALUES (1589911702990249985, '超级管理员', 'admin', '0', NULL, NULL, 'zhong', '2023-08-24 14:12:14.883', 0);
 
 -- ----------------------------
 -- Table structure for sys_role_menu
@@ -476,7 +506,7 @@ CREATE TABLE "public"."sys_user" (
   "update_by" varchar(32) COLLATE "pg_catalog"."default",
   "update_time" timestamp(6),
   "dept_id" int8,
-  "phone" varchar(16) COLLATE "pg_catalog"."default"
+  "phone" varchar(64) COLLATE "pg_catalog"."default"
 )
 ;
 COMMENT ON COLUMN "public"."sys_user"."user_id" IS '主键id';
@@ -494,8 +524,9 @@ COMMENT ON TABLE "public"."sys_user" IS '系统用户表';
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO "public"."sys_user" VALUES (1676409003203649538, 'test', '测试用户', '1377262950@qq.com', NULL, '0', '0', '753afef49e2471c77f38b813aa6be958', 'zhong', '2023-07-05 09:53:47.215', 'zhong', '2023-07-28 12:06:02.051', 1605373585801097218, '15867998888');
-INSERT INTO "public"."sys_user" VALUES (1590581006056333313, 'zhong', '钟', 'zhong@163.com', NULL, '0', '0', '343c18b975a1b4524f8dd8711936984e', 'admin', '2022-11-10 05:43:58', 'zhong', '2023-08-22 16:37:21.386', 1605376298555330561, '15867812247');
+INSERT INTO "public"."sys_user" VALUES (1676409003203649538, 'test', '测试用户', '55b8a30a374c32558e0aeec6ecc25478cb35cfff922646e409a2d66c439dedd7', NULL, '0', '0', '753afef49e2471c77f38b813aa6be958', 'zhong', '2023-07-05 09:53:47.215', 'zhong', '2023-08-24 13:33:22.024', 1605373585801097218, '9f64206b2b59a1d58a2f812e903e3bee');
+INSERT INTO "public"."sys_user" VALUES (1694592183618265090, 'aqi', 'aqi', '24779fdece90b7d76c683d94204f6916', NULL, '0', '0', '753afef49e2471c77f38b813aa6be958', 'zhong', '2023-08-24 14:07:15.264', 'zhong', '2023-08-24 14:07:15.264', 1605373585801097218, '7d8a7aea870d6e67fd98d72ad376d23e');
+INSERT INTO "public"."sys_user" VALUES (1590581006056333313, 'zhong', '钟', '71c85bd294794a11899f5da78e33dc47', NULL, '0', '0', '343c18b975a1b4524f8dd8711936984e', 'admin', '2022-11-10 05:43:58', 'zhong', '2023-08-24 14:08:04.016', 1605376298555330561, '9949ba9f335a484d9ef016bc2cfcfd6b');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -515,6 +546,7 @@ COMMENT ON TABLE "public"."sys_user_role" IS '用户角色关联表';
 -- ----------------------------
 INSERT INTO "public"."sys_user_role" VALUES (1676409003203649538, 1676408833992843265);
 INSERT INTO "public"."sys_user_role" VALUES (1590581006056333313, 1589911702990249985);
+INSERT INTO "public"."sys_user_role" VALUES (1694592183618265090, 1676408833992843265);
 
 -- ----------------------------
 -- Primary Key structure for table sys_client
