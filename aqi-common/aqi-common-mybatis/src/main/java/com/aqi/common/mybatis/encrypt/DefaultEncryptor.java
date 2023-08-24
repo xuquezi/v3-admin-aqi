@@ -3,7 +3,7 @@ package com.aqi.common.mybatis.encrypt;
 import cn.hutool.crypto.SecureUtil;
 
 public class DefaultEncryptor implements IEncryptor {
-    public static final byte[] AES_KEY = "VH2B9DB95VONPA5C".getBytes();
+    public static final byte[] AES_KEY = "DR2B9CB95QONPB6C".getBytes();
 
     @Override
     public String encrypt(String str) {
