@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -163,6 +164,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public void resetPassword(Long userId, String userPassword) {
+        this.validatePass(userPassword);
         // 密码加密
         userPassword = PasswordUtil.encryptFromString(userPassword);
         SysUser sysUser = new SysUser();
@@ -171,8 +173,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         updateById(sysUser);
     }
 
+    private void validatePass(String newPassword) {
+        // 密码复杂度限制
+        // 密码必须由字母和数字组成（同时包括数字和数字）；密码长度大于等于8个字符。
+        String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,20}$";
+        boolean matches = Pattern.matches(pattern, newPassword);
+        if (!matches) {
+            throw new RuntimeException("密码必须包含大小写字母数字及特殊字符，且8-20位之间");
+        }
+    }
+
     @Override
     public void updateUserPassword(Long userId, String oldPassword, String newPassword) {
+        this.validatePass(newPassword);
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysUser::getUserId, userId);
         SysUser sysUser = getOne(queryWrapper);
