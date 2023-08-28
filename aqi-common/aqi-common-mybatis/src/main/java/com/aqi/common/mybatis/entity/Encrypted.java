@@ -1,4 +1,4 @@
-package com.aqi.common.mybatis.encrypt;
+package com.aqi.common.mybatis.entity;
 
 import com.aqi.common.mybatis.annotation.FieldEncrypt;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface Encrypted {
-
     @JsonIgnore
     default List<Field> getEncryptFields() {
         List<Field> list = new ArrayList<>();

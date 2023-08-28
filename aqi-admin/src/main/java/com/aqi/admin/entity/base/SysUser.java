@@ -1,7 +1,7 @@
 package com.aqi.admin.entity.base;
 
 import com.aqi.common.mybatis.annotation.FieldEncrypt;
-import com.aqi.common.mybatis.encrypt.Encrypted;
+import com.aqi.common.mybatis.entity.Encrypted;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
