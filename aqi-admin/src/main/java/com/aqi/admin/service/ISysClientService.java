@@ -10,11 +10,11 @@ public interface ISysClientService extends IService<SysClient> {
 
     Page<SysClient> queryClientByPage(SysClientDTO sysClientDTO, Integer pageSize, Integer pageNum);
 
-    void addClient(SysClientDTO sysClientDTO);
+    SysClient addClient(SysClientDTO sysClientDTO);
 
-    void updateClient(SysClientDTO sysClientDTO);
-
-    void delClientById(Long clientId);
+    SysClient updateClient(SysClientDTO sysClientDTO);
 
     SysClient getClientByKey(String clientKey);
+
+    void delWithCache(String clientKey, Long clientId);
 }

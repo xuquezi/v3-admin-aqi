@@ -7,7 +7,7 @@ public interface CacheConstant {
 
     Long CAPTCHA_CACHE_EXPIRE_TIME = 120l;
 
-    String CLIENT_KEY = "client:";
+    String CLIENT_KEY = "client";
 
     String USER_LOCK = "user-lock:";
 

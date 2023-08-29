@@ -1,6 +1,5 @@
 package com.aqi.admin.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.aqi.admin.entity.base.SysClient;
 import com.aqi.admin.entity.dto.SysClientDTO;
 import com.aqi.admin.entity.vo.SysClientVo;
@@ -9,11 +8,11 @@ import com.aqi.admin.service.ISysClientService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.log.annotation.SysLog;
 import com.aqi.common.secure.annotation.RequiresPermissions;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -56,7 +55,8 @@ public class SysClientController {
     @RequiresPermissions("system:client:delete")
     @SysLog
     public R delClientById(@ApiParam(value = "客户端id", required = true) @RequestParam(value = "clientId") Long clientId) {
-        sysClientService.delClientById(clientId);
+        SysClient sysClient = sysClientService.getById(clientId);
+        sysClientService.delWithCache(sysClient.getClientKey(), clientId);
         return R.ok();
     }
 }
