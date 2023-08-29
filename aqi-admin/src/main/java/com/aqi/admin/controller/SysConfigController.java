@@ -12,15 +12,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/config")
 @Api(value = "系统配置表", tags = "系统配置接口")
+@RequiredArgsConstructor
 public class SysConfigController {
-    @Autowired
-    private ISysConfigService sysConfigService;
+
+    private final ISysConfigService sysConfigService;
 
     @ApiOperation(value = "根据configKey获取数据")
     @GetMapping("/getConfigByKey/{configKey}")

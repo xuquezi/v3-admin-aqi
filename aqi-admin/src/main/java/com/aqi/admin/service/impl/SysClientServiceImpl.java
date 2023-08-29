@@ -2,29 +2,29 @@ package com.aqi.admin.service.impl;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.aqi.admin.entity.base.SysClient;
 import com.aqi.admin.entity.dto.SysClientDTO;
 import com.aqi.admin.mapper.SysClientMapper;
 import com.aqi.admin.service.ISysClientService;
-import com.aqi.common.redis.constant.CacheConstant;
 import com.aqi.common.core.utils.BeanCopyUtils;
 import com.aqi.common.redis.annotation.MyRedisCache;
+import com.aqi.common.redis.constant.CacheConstant;
 import com.aqi.common.redis.utils.RedisUtils;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
 @Transactional
+@RequiredArgsConstructor
 public class SysClientServiceImpl extends ServiceImpl<SysClientMapper, SysClient> implements ISysClientService {
-    @Autowired
-    private RedisUtils redisUtils;
+    private final RedisUtils redisUtils;
 
 
     @Override

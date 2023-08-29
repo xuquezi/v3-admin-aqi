@@ -2,12 +2,12 @@ package com.aqi.common.redis.aspect;
 
 import com.aqi.common.redis.annotation.MyRedisCache;
 import com.aqi.common.redis.utils.RedisUtils;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
@@ -20,11 +20,10 @@ import java.lang.reflect.Method;
 
 @Component
 @Aspect
+@RequiredArgsConstructor
 public class RedisCacheAspect {
 
-
-    @Autowired
-    private RedisUtils redisUtils;
+    private final RedisUtils redisUtils;
 
     @Pointcut("@annotation(com.aqi.common.redis.annotation.MyRedisCache)")
     public void cachePointCut() {

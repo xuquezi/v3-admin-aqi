@@ -10,7 +10,7 @@ import com.aqi.common.secure.annotation.RequiresPermissions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,9 +18,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/dept")
 @Api(value = "部门接口", tags = "部门接口")
+@RequiredArgsConstructor
 public class SysDeptController {
-    @Autowired
-    private ISysDeptService sysDeptService;
+    private final ISysDeptService sysDeptService;
 
     /**
      * 获取部门下拉树列表

@@ -2,31 +2,32 @@ package com.aqi.job.service.impl;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.aqi.common.core.utils.BeanCopyUtils;
 import com.aqi.job.constant.ScheduleConstants;
+import com.aqi.job.entity.base.SysJob;
+import com.aqi.job.entity.dto.SysJobDTO;
 import com.aqi.job.enums.TaskStatusEnum;
+import com.aqi.job.mapper.SysJobMapper;
+import com.aqi.job.service.ISysJobService;
+import com.aqi.job.utils.ScheduleUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.aqi.common.core.utils.BeanCopyUtils;
-import com.aqi.job.entity.base.SysJob;
-import com.aqi.job.entity.dto.SysJobDTO;
-import com.aqi.job.mapper.SysJobMapper;
-import com.aqi.job.service.ISysJobService;
-import com.aqi.job.utils.ScheduleUtils;
+import lombok.RequiredArgsConstructor;
 import org.quartz.JobDataMap;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> implements ISysJobService {
-    @Autowired
-    private Scheduler scheduler;
+
+    private final Scheduler scheduler;
 
     @Override
     public void createJob(SysJobDTO sysJobDTO) throws SchedulerException {

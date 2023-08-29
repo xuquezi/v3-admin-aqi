@@ -12,12 +12,11 @@ import com.aqi.admin.entity.wrapper.SysDeptWrapper;
 import com.aqi.admin.mapper.SysDeptMapper;
 import com.aqi.admin.service.ISysDeptService;
 import com.aqi.admin.service.ISysUserService;
-import com.aqi.common.core.constant.CommonConstant;
 import com.aqi.common.core.utils.BeanCopyUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,9 +27,9 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements ISysDeptService {
-    @Autowired
-    private ISysUserService sysUserService;
+    private final ISysUserService sysUserService;
 
 
     @Override

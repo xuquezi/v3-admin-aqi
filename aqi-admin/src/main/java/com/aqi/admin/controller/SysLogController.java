@@ -1,6 +1,5 @@
 package com.aqi.admin.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.aqi.admin.entity.base.SysLog;
 import com.aqi.admin.entity.dto.SysLogDTO;
 import com.aqi.admin.entity.vo.SysLogVo;
@@ -8,18 +7,19 @@ import com.aqi.admin.entity.wrapper.SysLogWrapper;
 import com.aqi.admin.service.ISysLogService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.secure.annotation.RequiresPermissions;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/operateLog")
 @Api(value = "操作日志", tags = "操作日志接口")
+@RequiredArgsConstructor
 public class SysLogController {
-    @Autowired
-    private ISysLogService sysLogService;
+    private final ISysLogService sysLogService;
 
     @ApiOperation(value = "分页查询日志")
     @GetMapping("/queryLogByPage")

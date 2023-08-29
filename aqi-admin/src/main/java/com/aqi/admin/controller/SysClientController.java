@@ -12,15 +12,17 @@ import com.aqi.common.secure.annotation.RequiresPermissions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/client")
 @Api(value = "客户端接口", tags = "客户端接口")
+@RequiredArgsConstructor
 public class SysClientController {
-    @Autowired
-    private ISysClientService sysClientService;
+
+    private final ISysClientService sysClientService;
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/queryClientByPage")

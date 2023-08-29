@@ -1,6 +1,5 @@
 package com.aqi.job.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.log.annotation.SysLog;
 import com.aqi.common.secure.annotation.RequiresPermissions;
@@ -9,19 +8,21 @@ import com.aqi.job.entity.dto.SysJobDTO;
 import com.aqi.job.entity.vo.SysJobVo;
 import com.aqi.job.entity.wrapper.SysJobWrapper;
 import com.aqi.job.service.ISysJobService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import org.quartz.SchedulerException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/job")
 @Api(value = "定时任务", tags = "定时任务接口")
+@RequiredArgsConstructor
 public class SysJobController {
-    @Autowired
-    private ISysJobService jobService;
+
+    private final ISysJobService jobService;
 
     @RequiresPermissions("system:job:add")
     @ApiOperation(value = "新增定时任务")

@@ -4,23 +4,26 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.aqi.admin.constant.AdminCommonConstant;
-import com.aqi.admin.entity.vo.*;
-import com.aqi.admin.enums.MenuTypeEnum;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.aqi.admin.entity.base.SysMenu;
 import com.aqi.admin.entity.base.SysRoleMenu;
 import com.aqi.admin.entity.dto.SysMenuDTO;
+import com.aqi.admin.entity.vo.Meta;
+import com.aqi.admin.entity.vo.Option;
+import com.aqi.admin.entity.vo.Route;
+import com.aqi.admin.entity.vo.SysMenuVo;
 import com.aqi.admin.entity.wrapper.SysMenuWrapper;
+import com.aqi.admin.enums.MenuTypeEnum;
 import com.aqi.admin.mapper.SysMenuMapper;
 import com.aqi.admin.service.ISysMenuService;
 import com.aqi.admin.service.ISysRoleMenuService;
 import com.aqi.common.core.constant.CommonConstant;
 import com.aqi.common.core.utils.BeanCopyUtils;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,9 +33,10 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Transactional
+@RequiredArgsConstructor
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
-    @Autowired
-    private ISysRoleMenuService roleMenuService;
+
+    private final ISysRoleMenuService roleMenuService;
 
     @Override
     public List<Route> queryMenusByRoleIds(Long[] roleIds) {

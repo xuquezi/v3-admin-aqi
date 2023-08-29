@@ -5,7 +5,7 @@ import com.aqi.admin.entity.base.SysClient;
 import com.aqi.admin.service.ISysClientService;
 import com.aqi.common.redis.constant.CacheConstant;
 import com.aqi.common.redis.utils.RedisUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class InitAdmin implements ApplicationRunner {
-    @Autowired
-    private ISysClientService sysClientService;
-    @Autowired
-    private RedisUtils redisUtils;
+    private final ISysClientService sysClientService;
+    private final RedisUtils redisUtils;
 
     @Override
     public void run(ApplicationArguments args) {

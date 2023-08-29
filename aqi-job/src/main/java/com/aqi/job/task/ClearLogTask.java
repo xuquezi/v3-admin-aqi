@@ -2,18 +2,18 @@ package com.aqi.job.task;
 
 import com.aqi.api.admin.SysLogProvider;
 import com.aqi.job.service.ISysJobLogService;
+import lombok.RequiredArgsConstructor;
 import org.apache.dubbo.config.annotation.Reference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("clearLogTask")
+@RequiredArgsConstructor
 public class ClearLogTask {
 
     @Reference
     private SysLogProvider sysLogProvider;
 
-    @Autowired
-    private ISysJobLogService sysJobLogService;
+    private final ISysJobLogService sysJobLogService;
 
     /**
      * 定时清理定时任务日志

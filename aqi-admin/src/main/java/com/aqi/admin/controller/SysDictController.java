@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +20,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/dict")
 @Api(value = "系统字典表", tags = "系统字典接口")
+@RequiredArgsConstructor
 public class SysDictController {
 
-    @Autowired
-    private ISysDictService sysDictService;
+    private final ISysDictService sysDictService;
 
     @ApiOperation(value = "根据dictType获取数据")
     @GetMapping("/getDict/{dictType}")

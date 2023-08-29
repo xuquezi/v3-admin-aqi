@@ -2,15 +2,11 @@ package com.aqi.admin.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
-import com.aqi.admin.entity.dto.RoleMenuDTO;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.aqi.admin.entity.base.SysMenu;
 import com.aqi.admin.entity.base.SysRole;
 import com.aqi.admin.entity.base.SysRoleMenu;
 import com.aqi.admin.entity.base.SysUserRole;
+import com.aqi.admin.entity.dto.RoleMenuDTO;
 import com.aqi.admin.entity.dto.SysRoleDTO;
 import com.aqi.admin.entity.vo.SysRoleVo;
 import com.aqi.admin.entity.wrapper.SysRoleWrapper;
@@ -21,8 +17,12 @@ import com.aqi.admin.service.ISysRoleService;
 import com.aqi.admin.service.ISysUserRoleService;
 import com.aqi.common.core.constant.CommonConstant;
 import com.aqi.common.core.utils.BeanCopyUtils;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,15 +32,13 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Transactional
+@RequiredArgsConstructor
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
-    @Autowired
-    private ISysRoleMenuService roleMenuService;
+    private final ISysRoleMenuService roleMenuService;
 
-    @Autowired
-    private ISysMenuService menuService;
+    private final ISysMenuService menuService;
 
-    @Autowired
-    private ISysUserRoleService userRoleService;
+    private final ISysUserRoleService userRoleService;
 
     @Override
     public Set<String> queryUserPermissions(List<Long> roleIds) {

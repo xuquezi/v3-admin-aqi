@@ -11,8 +11,8 @@ import com.aqi.common.secure.annotation.RequiresPermissions;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +21,9 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/menu")
 @Api(value = "系统菜单表", tags = "系统菜单接口")
+@RequiredArgsConstructor
 public class SysMenuController {
-    @Autowired
-    private ISysMenuService sysMenuService;
+    private final ISysMenuService sysMenuService;
 
     @ApiOperation(value = "根据角色id数组获取菜单数据")
     @PostMapping("/queryMenusByRoleIds")

@@ -24,8 +24,8 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wf.captcha.SpecCaptcha;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,14 +36,14 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Transactional
+@RequiredArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
-    @Autowired
-    private ISysUserRoleService userRoleService;
-    @Autowired
-    private ISysRoleService roleService;
 
-    @Autowired
-    private RedisUtils redisUtils;
+    private final ISysUserRoleService userRoleService;
+
+    private final ISysRoleService roleService;
+
+    private final RedisUtils redisUtils;
 
     // 账号锁定30分钟
     private static int LOCK_TIME = 30;

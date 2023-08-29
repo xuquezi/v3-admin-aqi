@@ -1,6 +1,5 @@
 package com.aqi.job.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.secure.annotation.RequiresPermissions;
 import com.aqi.job.entity.base.SysJobLog;
@@ -8,18 +7,20 @@ import com.aqi.job.entity.dto.SysJobLogDTO;
 import com.aqi.job.entity.vo.SysJobLogVo;
 import com.aqi.job.entity.wrapper.SysJobLogWrapper;
 import com.aqi.job.service.ISysJobLogService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/jobLog")
 @Api(value = "定时任务日志", tags = "定时任务日志接口")
+@RequiredArgsConstructor
 public class SysJobLogController {
-    @Autowired
-    private ISysJobLogService sysJobLogService;
+
+    private final ISysJobLogService sysJobLogService;
 
     @ApiOperation(value = "分页查询日志")
     @GetMapping("/queryJobLogByPage")

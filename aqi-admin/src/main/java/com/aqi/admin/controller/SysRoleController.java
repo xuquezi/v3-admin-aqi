@@ -1,8 +1,7 @@
 package com.aqi.admin.controller;
 
-import com.aqi.admin.entity.dto.RoleMenuDTO;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.aqi.admin.entity.base.SysRole;
+import com.aqi.admin.entity.dto.RoleMenuDTO;
 import com.aqi.admin.entity.dto.SysRoleDTO;
 import com.aqi.admin.entity.vo.SysRoleVo;
 import com.aqi.admin.entity.wrapper.SysRoleWrapper;
@@ -10,10 +9,11 @@ import com.aqi.admin.service.ISysRoleService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.log.annotation.SysLog;
 import com.aqi.common.secure.annotation.RequiresPermissions;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +21,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/role")
 @Api(value = "系统角色表", tags = "系统角色接口")
+@RequiredArgsConstructor
 public class SysRoleController {
-    @Autowired
-    private ISysRoleService sysRoleService;
+    private final ISysRoleService sysRoleService;
 
     @ApiOperation(value = "获取所有角色")
     @GetMapping("/queryAllRoles")

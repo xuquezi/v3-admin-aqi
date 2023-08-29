@@ -1,6 +1,5 @@
 package com.aqi.admin.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.aqi.admin.entity.base.SysUser;
 import com.aqi.admin.entity.dto.LoginDTO;
 import com.aqi.admin.entity.dto.SysUserDTO;
@@ -14,18 +13,20 @@ import com.aqi.common.log.annotation.SysLog;
 import com.aqi.common.secure.annotation.RequiresPermissions;
 import com.aqi.common.secure.entity.SystemUser;
 import com.aqi.common.secure.utils.SecureUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
 @Api(value = "系统用户表", tags = "系统用户接口")
+@RequiredArgsConstructor
 public class SysUserController {
-    @Autowired
-    private ISysUserService sysUserService;
+
+    private final ISysUserService sysUserService;
 
     @ApiOperation(value = "用户登录")
     @PostMapping("/login")
