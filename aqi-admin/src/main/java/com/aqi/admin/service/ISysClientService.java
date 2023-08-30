@@ -16,5 +16,5 @@ public interface ISysClientService extends IService<SysClient> {
 
     SysClient getClientByKey(String clientKey);
 
-    void delWithCache(String clientKey, Long clientId);
+    void delClientByKey(String clientKey);
 }

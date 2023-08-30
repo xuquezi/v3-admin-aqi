@@ -58,11 +58,6 @@ public class SysClientServiceImpl extends ServiceImpl<SysClientMapper, SysClient
         return sysClient;
     }
 
-    @CacheEvict(value = CacheConstant.CLIENT_KEY, key = "#clientKey")
-    public void delWithCache(String clientKey, Long clientId) {
-        removeById(clientId);
-    }
-
     @Cacheable(value = CacheConstant.CLIENT_KEY, key = "#clientKey")
     @Override
     public SysClient getClientByKey(String clientKey) {
@@ -70,5 +65,13 @@ public class SysClientServiceImpl extends ServiceImpl<SysClientMapper, SysClient
         queryWrapper.eq(SysClient::getClientKey, clientKey);
         SysClient sysClient = getOne(queryWrapper);
         return sysClient;
+    }
+
+    @CacheEvict(value = CacheConstant.CLIENT_KEY, key = "#clientKey")
+    @Override
+    public void delClientByKey(String clientKey) {
+        LambdaQueryWrapper<SysClient> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(SysClient::getClientKey, clientKey);
+        this.remove(queryWrapper);
     }
 }

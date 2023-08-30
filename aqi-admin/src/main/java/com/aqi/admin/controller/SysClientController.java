@@ -51,12 +51,11 @@ public class SysClientController {
     }
 
     @ApiOperation(value = "删除客户端")
-    @DeleteMapping("/delClientById")
+    @DeleteMapping("/delClientByKey")
     @RequiresPermissions("system:client:delete")
     @SysLog
-    public R delClientById(@ApiParam(value = "客户端id", required = true) @RequestParam(value = "clientId") Long clientId) {
-        SysClient sysClient = sysClientService.getById(clientId);
-        sysClientService.delWithCache(sysClient.getClientKey(), clientId);
+    public R delClientByKey(@ApiParam(value = "客户端key", required = true) @RequestParam(value = "clientKey") String clientKey) {
+        sysClientService.delClientByKey(clientKey);
         return R.ok();
     }
 }
