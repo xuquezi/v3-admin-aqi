@@ -26,7 +26,7 @@ public class SysLogController {
     @RequiresPermissions("system:operateLog:list")
     public R<Page<SysLogVo>> queryLogByPage(SysLogDTO sysLogDTO, @ApiParam(value = "每页显示", required = true) @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @ApiParam(value = "当前页", required = true) @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum) {
         Page<SysLog> page = sysLogService.queryLogByPage(sysLogDTO, pageSize, pageNum);
-        com.baomidou.mybatisplus.extension.plugins.pagination.Page<SysLogVo> sysLogVoPage = SysLogWrapper.build().pageVO(page);
+        Page<SysLogVo> sysLogVoPage = SysLogWrapper.build().pageVO(page);
         return R.data(sysLogVoPage);
     }
 
