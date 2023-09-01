@@ -2,11 +2,12 @@ package com.aqi.admin.service.impl;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.aqi.admin.converter.SysClientConverter;
 import com.aqi.admin.entity.base.SysClient;
 import com.aqi.admin.entity.dto.SysClientDTO;
+import com.aqi.admin.entity.vo.SysClientVo;
 import com.aqi.admin.mapper.SysClientMapper;
 import com.aqi.admin.service.ISysClientService;
-import com.aqi.common.core.utils.BeanCopyUtils;
 import com.aqi.common.redis.constant.CacheConstant;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -26,12 +27,15 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class SysClientServiceImpl extends ServiceImpl<SysClientMapper, SysClient> implements ISysClientService {
 
+    private final SysClientConverter sysClientConverter;
+
     @Override
-    public Page<SysClient> queryClientByPage(SysClientDTO sysClientDTO, Integer pageSize, Integer pageNum) {
+    public Page<SysClientVo> queryClientByPage(SysClientDTO sysClientDTO, Integer pageSize, Integer pageNum) {
         LambdaQueryWrapper<SysClient> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(StrUtil.isNotBlank(sysClientDTO.getClientName()), SysClient::getClientName, sysClientDTO.getClientName());
         Page<SysClient> page = page(new Page<SysClient>(pageNum, pageSize), queryWrapper);
-        return page;
+        Page<SysClientVo> sysClientVoPage = sysClientConverter.baseToVo(page);
+        return sysClientVoPage;
     }
 
     @CachePut(value = CacheConstant.CLIENT_KEY, key = "#sysClientDTO.clientKey")
@@ -43,7 +47,7 @@ public class SysClientServiceImpl extends ServiceImpl<SysClientMapper, SysClient
         if (one != null) {
             throw new RuntimeException("secretKey 已存在");
         }
-        SysClient sysClient = BeanCopyUtils.copy(sysClientDTO, SysClient.class);
+        SysClient sysClient = sysClientConverter.dtoToBase(sysClientDTO);
         long id = IdWorker.getId();
         sysClient.setClientId(id);
         save(sysClient);
@@ -53,7 +57,7 @@ public class SysClientServiceImpl extends ServiceImpl<SysClientMapper, SysClient
     @CachePut(value = CacheConstant.CLIENT_KEY, key = "#sysClientDTO.clientKey")
     @Override
     public SysClient updateClient(SysClientDTO sysClientDTO) {
-        SysClient sysClient = BeanCopyUtils.copy(sysClientDTO, SysClient.class);
+        SysClient sysClient = sysClientConverter.dtoToBase(sysClientDTO);
         updateById(sysClient);
         return sysClient;
     }

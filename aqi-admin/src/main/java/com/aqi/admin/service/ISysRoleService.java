@@ -14,7 +14,7 @@ import java.util.Set;
 public interface ISysRoleService extends IService<SysRole> {
     Set<String> queryUserPermissions(List<Long> roleIds);
 
-    Page<SysRole> queryRolesByPage(SysRoleDTO sysRoleDTO, Integer pageSize, Integer pageNum);
+    Page<SysRoleVo> queryRolesByPage(SysRoleDTO sysRoleDTO, Integer pageSize, Integer pageNum);
 
     void delRoleByRoleId(Long roleId);
 

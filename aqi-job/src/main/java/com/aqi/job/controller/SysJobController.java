@@ -3,10 +3,8 @@ package com.aqi.job.controller;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.log.annotation.SysLog;
 import com.aqi.common.secure.annotation.RequiresPermissions;
-import com.aqi.job.entity.base.SysJob;
 import com.aqi.job.entity.dto.SysJobDTO;
 import com.aqi.job.entity.vo.SysJobVo;
-import com.aqi.job.entity.wrapper.SysJobWrapper;
 import com.aqi.job.service.ISysJobService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -73,8 +71,7 @@ public class SysJobController {
     @ApiOperation(value = "分页查询")
     @GetMapping("/queryJobByPage")
     public R<Page<SysJobVo>> queryJobByPage(SysJobDTO sysJobDTO, @ApiParam(value = "每页显示", required = true) @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @ApiParam(value = "当前页", required = true) @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<SysJob> page = jobService.queryJobByPage(sysJobDTO, pageSize, pageNum);
-        Page<SysJobVo> sysJobVoPage = SysJobWrapper.build().pageVO(page);
-        return R.data(sysJobVoPage);
+        Page<SysJobVo> page = jobService.queryJobByPage(sysJobDTO, pageSize, pageNum);
+        return R.data(page);
     }
 }

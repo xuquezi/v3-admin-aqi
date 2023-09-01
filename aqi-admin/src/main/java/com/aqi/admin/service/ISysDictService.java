@@ -14,7 +14,7 @@ public interface ISysDictService extends IService<SysDict> {
 
     List<SysDictVo> getDict(String dictType);
 
-    Page<SysDict> queryDictByPage(SysDictDTO sysDictDTO, Integer pageSize, Integer pageNum);
+    Page<SysDictVo> queryDictByPage(SysDictDTO sysDictDTO, Integer pageSize, Integer pageNum);
 
     void delDictByDictCode(Long dictCode);
 

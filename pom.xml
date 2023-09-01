@@ -37,6 +37,7 @@
         <dubbo.version>2.7.4.1</dubbo.version>
         <hutool.version>5.8.5</hutool.version>
         <postgresql.version>42.2.18</postgresql.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
     </properties>
 
     <parent>
@@ -169,6 +170,16 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

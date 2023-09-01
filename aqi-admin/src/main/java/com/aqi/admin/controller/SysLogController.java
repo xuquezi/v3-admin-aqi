@@ -1,9 +1,7 @@
 package com.aqi.admin.controller;
 
-import com.aqi.admin.entity.base.SysLog;
 import com.aqi.admin.entity.dto.SysLogDTO;
 import com.aqi.admin.entity.vo.SysLogVo;
-import com.aqi.admin.entity.wrapper.SysLogWrapper;
 import com.aqi.admin.service.ISysLogService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.secure.annotation.RequiresPermissions;
@@ -25,9 +23,8 @@ public class SysLogController {
     @GetMapping("/queryLogByPage")
     @RequiresPermissions("system:operateLog:list")
     public R<Page<SysLogVo>> queryLogByPage(SysLogDTO sysLogDTO, @ApiParam(value = "每页显示", required = true) @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @ApiParam(value = "当前页", required = true) @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<SysLog> page = sysLogService.queryLogByPage(sysLogDTO, pageSize, pageNum);
-        Page<SysLogVo> sysLogVoPage = SysLogWrapper.build().pageVO(page);
-        return R.data(sysLogVoPage);
+        Page<SysLogVo> page = sysLogService.queryLogByPage(sysLogDTO, pageSize, pageNum);
+        return R.data(page);
     }
 
     @ApiOperation(value = "删除日志")

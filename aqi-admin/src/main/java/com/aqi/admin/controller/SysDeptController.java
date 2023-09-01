@@ -40,13 +40,6 @@ public class SysDeptController {
         return R.data(sysDeptVoList);
     }
 
-    @ApiOperation(value = "获取部门列表")
-    @GetMapping("/getDepartList")
-    public R<List<SysDeptVo>> getDepartList() {
-        List<SysDeptVo> deptVoList = sysDeptService.getDepartList();
-        return R.data(deptVoList);
-    }
-
     @RequiresPermissions("system:dept:update")
     @ApiOperation(value = "部门更新")
     @PutMapping("/updateDept")

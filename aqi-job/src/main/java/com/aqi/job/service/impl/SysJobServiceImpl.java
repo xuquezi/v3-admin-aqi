@@ -2,10 +2,11 @@ package com.aqi.job.service.impl;
 
 
 import cn.hutool.core.util.StrUtil;
-import com.aqi.common.core.utils.BeanCopyUtils;
 import com.aqi.job.constant.ScheduleConstants;
+import com.aqi.job.converter.SysJobConverter;
 import com.aqi.job.entity.base.SysJob;
 import com.aqi.job.entity.dto.SysJobDTO;
+import com.aqi.job.entity.vo.SysJobVo;
 import com.aqi.job.enums.TaskStatusEnum;
 import com.aqi.job.mapper.SysJobMapper;
 import com.aqi.job.service.ISysJobService;
@@ -29,13 +30,15 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
 
     private final Scheduler scheduler;
 
+    private final SysJobConverter sysJobConverter;
+
     @Override
     public void createJob(SysJobDTO sysJobDTO) throws SchedulerException {
         // 如果任务已经存在，判断一下删除
         if (ScheduleUtils.checkExists(scheduler, sysJobDTO.getJobId())) {
             this.removeById(sysJobDTO.getJobId());
         }
-        SysJob sysJob = BeanCopyUtils.copy(sysJobDTO, SysJob.class);
+        SysJob sysJob = sysJobConverter.dtoToBase(sysJobDTO);
         if (StrUtil.isEmpty(sysJob.getJobId())) {
             sysJob.setJobId(IdWorker.getIdStr());
         }
@@ -59,7 +62,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
 
     @Override
     public void updateJob(SysJobDTO sysJobDTO) throws SchedulerException {
-        SysJob sysJob = BeanCopyUtils.copy(sysJobDTO, SysJob.class);
+        SysJob sysJob = sysJobConverter.dtoToBase(sysJobDTO);
         updateById(sysJob);
 
         String jobId = sysJob.getJobId();
@@ -86,10 +89,11 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     }
 
     @Override
-    public Page<SysJob> queryJobByPage(SysJobDTO sysJobDTO, Integer pageSize, Integer pageNum) {
+    public Page<SysJobVo> queryJobByPage(SysJobDTO sysJobDTO, Integer pageSize, Integer pageNum) {
         LambdaQueryWrapper<SysJob> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(StrUtil.isNotBlank(sysJobDTO.getJobName()), SysJob::getJobName, sysJobDTO.getJobName());
         Page<SysJob> page = page(new Page<SysJob>(pageNum, pageSize), queryWrapper);
-        return page;
+        Page<SysJobVo> sysJobVoPage = sysJobConverter.baseToVo(page);
+        return sysJobVoPage;
     }
 }

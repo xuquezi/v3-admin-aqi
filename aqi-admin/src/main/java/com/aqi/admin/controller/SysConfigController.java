@@ -3,7 +3,6 @@ package com.aqi.admin.controller;
 import com.aqi.admin.entity.base.SysConfig;
 import com.aqi.admin.entity.dto.SysConfigDTO;
 import com.aqi.admin.entity.vo.SysConfigVo;
-import com.aqi.admin.entity.wrapper.SysConfigWrapper;
 import com.aqi.admin.service.ISysConfigService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.log.annotation.SysLog;
@@ -35,9 +34,8 @@ public class SysConfigController {
     @ApiOperation(value = "分页查询")
     @GetMapping("/queryConfigByPage")
     public R<Page<SysConfigVo>> queryConfigByPage(SysConfigDTO sysConfigDTO, @ApiParam(value = "每页显示", required = true) @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @ApiParam(value = "当前页", required = true) @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<SysConfig> page = sysConfigService.queryConfigByPage(sysConfigDTO, pageSize, pageNum);
-        Page<SysConfigVo> sysConfigVoPage = SysConfigWrapper.build().pageVO(page);
-        return R.data(sysConfigVoPage);
+        Page<SysConfigVo> page = sysConfigService.queryConfigByPage(sysConfigDTO, pageSize, pageNum);
+        return R.data(page);
     }
 
     @RequiresPermissions("system:config:delete")

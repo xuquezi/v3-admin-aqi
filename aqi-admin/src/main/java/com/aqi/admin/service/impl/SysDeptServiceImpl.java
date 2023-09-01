@@ -3,16 +3,15 @@ package com.aqi.admin.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.aqi.admin.constant.AdminCommonConstant;
+import com.aqi.admin.converter.SysDeptConverter;
 import com.aqi.admin.entity.base.SysDept;
 import com.aqi.admin.entity.base.SysUser;
 import com.aqi.admin.entity.dto.SysDeptDTO;
 import com.aqi.admin.entity.vo.Option;
 import com.aqi.admin.entity.vo.SysDeptVo;
-import com.aqi.admin.entity.wrapper.SysDeptWrapper;
 import com.aqi.admin.mapper.SysDeptMapper;
 import com.aqi.admin.service.ISysDeptService;
 import com.aqi.admin.service.ISysUserService;
-import com.aqi.common.core.utils.BeanCopyUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,8 +28,10 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements ISysDeptService {
+
     private final ISysUserService sysUserService;
 
+    private final SysDeptConverter sysDeptConverter;
 
     @Override
     public List<Option> departTreeSelect() {
@@ -93,7 +94,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
                 .stream()
                 .filter(dept -> dept.getParentId().equals(parentId))
                 .map(entity -> {
-                    SysDeptVo sysDeptVo = SysDeptWrapper.build().entityVO(entity);
+                    SysDeptVo sysDeptVo = sysDeptConverter.baseToVo(entity);
                     List<SysDeptVo> children = recurDepts(entity.getDeptId(), deptList);
                     sysDeptVo.setChildren(children);
                     return sysDeptVo;
@@ -101,16 +102,8 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     }
 
     @Override
-    public List<SysDeptVo> getDepartList() {
-        LambdaQueryWrapper<SysDept> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.orderByDesc(SysDept::getParentId).orderByDesc(SysDept::getOrderNum);
-        List<SysDept> list = list(lambdaQueryWrapper);
-        return SysDeptWrapper.build().listVO(list);
-    }
-
-    @Override
     public void saveDept(SysDeptDTO sysDeptDTO) {
-        SysDept sysDept = BeanCopyUtils.copy(sysDeptDTO, SysDept.class);
+        SysDept sysDept = sysDeptConverter.dtoToBase(sysDeptDTO);
         // 部门路径
         String treePath = generateDeptTreePath(sysDeptDTO.getParentId());
         sysDept.setTreePath(treePath);

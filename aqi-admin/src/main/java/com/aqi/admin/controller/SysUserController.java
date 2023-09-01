@@ -5,7 +5,6 @@ import com.aqi.admin.entity.dto.LoginDTO;
 import com.aqi.admin.entity.dto.SysUserDTO;
 import com.aqi.admin.entity.vo.CaptchaData;
 import com.aqi.admin.entity.vo.SysUserVo;
-import com.aqi.admin.entity.wrapper.SysUserWrapper;
 import com.aqi.admin.service.ISysUserService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.core.utils.BeanCopyUtils;
@@ -39,9 +38,8 @@ public class SysUserController {
     @ApiOperation(value = "用户分页查询")
     @GetMapping("/page")
     public R<Page<SysUserVo>> queryUsersByPage(SysUserDTO sysUserDTO, @ApiParam(value = "每页显示", required = true) @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @ApiParam(value = "当前页", required = true) @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<SysUser> page = sysUserService.queryUsersByPage(sysUserDTO, pageSize, pageNum);
-        Page<SysUserVo> sysUserVoPage = SysUserWrapper.build().pageVO(page);
-        return R.data(sysUserVoPage);
+        Page<SysUserVo> page = sysUserService.queryUsersByPage(sysUserDTO, pageSize, pageNum);
+        return R.data(page);
     }
 
     @RequiresPermissions("system:user:delete")

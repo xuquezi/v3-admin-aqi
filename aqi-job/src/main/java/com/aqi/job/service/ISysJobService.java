@@ -1,6 +1,7 @@
 package com.aqi.job.service;
 
 
+import com.aqi.job.entity.vo.SysJobVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.aqi.job.entity.base.SysJob;
@@ -18,5 +19,5 @@ public interface ISysJobService extends IService<SysJob> {
 
     void changeStatus(String jobId, String jobStatus) throws SchedulerException;
 
-    Page<SysJob> queryJobByPage(SysJobDTO sysJobDTO, Integer pageSize, Integer pageNum);
+    Page<SysJobVo> queryJobByPage(SysJobDTO sysJobDTO, Integer pageSize, Integer pageNum);
 }

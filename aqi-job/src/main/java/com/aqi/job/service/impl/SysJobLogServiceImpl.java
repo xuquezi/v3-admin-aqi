@@ -1,6 +1,8 @@
 package com.aqi.job.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.aqi.job.converter.SysJobLogConverter;
+import com.aqi.job.entity.vo.SysJobLogVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -8,6 +10,7 @@ import com.aqi.job.entity.base.SysJobLog;
 import com.aqi.job.entity.dto.SysJobLogDTO;
 import com.aqi.job.mapper.SysJobLogMapper;
 import com.aqi.job.service.ISysJobLogService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +20,18 @@ import java.util.stream.Stream;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SysJobLogServiceImpl extends ServiceImpl<SysJobLogMapper, SysJobLog> implements ISysJobLogService {
+
+    private final SysJobLogConverter sysJobLogConverter;
+
     @Override
-    public Page<SysJobLog> queryJobLogByPage(SysJobLogDTO sysJobLogDTO, Integer pageSize, Integer pageNum) {
+    public Page<SysJobLogVo> queryJobLogByPage(SysJobLogDTO sysJobLogDTO, Integer pageSize, Integer pageNum) {
         LambdaQueryWrapper<SysJobLog> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(StrUtil.isNotBlank(sysJobLogDTO.getJobName()), SysJobLog::getJobName, sysJobLogDTO.getJobName());
         Page<SysJobLog> page = page(new Page<SysJobLog>(pageNum, pageSize), queryWrapper);
-        return page;
+        Page<SysJobLogVo> sysJobLogVoPage = sysJobLogConverter.baseToVo(page);
+        return sysJobLogVoPage;
     }
 
     @Override

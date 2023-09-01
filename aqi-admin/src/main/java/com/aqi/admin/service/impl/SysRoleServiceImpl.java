@@ -2,6 +2,7 @@ package com.aqi.admin.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.aqi.admin.converter.SysRoleConverter;
 import com.aqi.admin.entity.base.SysMenu;
 import com.aqi.admin.entity.base.SysRole;
 import com.aqi.admin.entity.base.SysRoleMenu;
@@ -9,14 +10,12 @@ import com.aqi.admin.entity.base.SysUserRole;
 import com.aqi.admin.entity.dto.RoleMenuDTO;
 import com.aqi.admin.entity.dto.SysRoleDTO;
 import com.aqi.admin.entity.vo.SysRoleVo;
-import com.aqi.admin.entity.wrapper.SysRoleWrapper;
 import com.aqi.admin.mapper.SysRoleMapper;
 import com.aqi.admin.service.ISysMenuService;
 import com.aqi.admin.service.ISysRoleMenuService;
 import com.aqi.admin.service.ISysRoleService;
 import com.aqi.admin.service.ISysUserRoleService;
 import com.aqi.common.core.constant.CommonConstant;
-import com.aqi.common.core.utils.BeanCopyUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -34,11 +33,14 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
+
     private final ISysRoleMenuService roleMenuService;
 
     private final ISysMenuService menuService;
 
     private final ISysUserRoleService userRoleService;
+
+    private final SysRoleConverter sysRoleConverter;
 
     @Override
     public Set<String> queryUserPermissions(List<Long> roleIds) {
@@ -65,7 +67,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         LambdaQueryWrapper<SysRole> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysRole::getStatus, CommonConstant.USE);
         List<SysRole> list = list(queryWrapper);
-        return SysRoleWrapper.build().listVO(list);
+        List<SysRoleVo> sysRoleVos = sysRoleConverter.baseToVo(list);
+        return sysRoleVos;
     }
 
     @Override
@@ -83,14 +86,14 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public void addRole(SysRoleDTO sysRoleDTO) {
         long roleId = IdWorker.getId();
-        SysRole sysRole = BeanCopyUtils.copy(sysRoleDTO, SysRole.class);
+        SysRole sysRole = sysRoleConverter.dtoToBase(sysRoleDTO);
         sysRole.setRoleId(roleId);
         save(sysRole);
     }
 
     @Override
     public void updateRole(SysRoleDTO sysRoleDTO) {
-        SysRole sysRole = BeanCopyUtils.copy(sysRoleDTO, SysRole.class);
+        SysRole sysRole = sysRoleConverter.dtoToBase(sysRoleDTO);
         updateById(sysRole);
     }
 
@@ -142,12 +145,13 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
-    public Page<SysRole> queryRolesByPage(SysRoleDTO sysRoleDTO, Integer pageSize, Integer pageNum) {
+    public Page<SysRoleVo> queryRolesByPage(SysRoleDTO sysRoleDTO, Integer pageSize, Integer pageNum) {
         LambdaQueryWrapper<SysRole> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(StrUtil.isNotBlank(sysRoleDTO.getRoleName()), SysRole::getRoleName, sysRoleDTO.getRoleName());
         queryWrapper.like(StrUtil.isNotBlank(sysRoleDTO.getRoleKey()), SysRole::getRoleKey, sysRoleDTO.getRoleKey());
         Page<SysRole> page = page(new Page<SysRole>(pageNum, pageSize), queryWrapper);
-        return page;
+        Page<SysRoleVo> sysRoleVoPage = sysRoleConverter.baseToVo(page);
+        return sysRoleVoPage;
     }
 
     @Override

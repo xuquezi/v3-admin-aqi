@@ -1,9 +1,7 @@
 package com.aqi.admin.controller;
 
-import com.aqi.admin.entity.base.SysClient;
 import com.aqi.admin.entity.dto.SysClientDTO;
 import com.aqi.admin.entity.vo.SysClientVo;
-import com.aqi.admin.entity.wrapper.SysClientWrapper;
 import com.aqi.admin.service.ISysClientService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.log.annotation.SysLog;
@@ -27,9 +25,8 @@ public class SysClientController {
     @GetMapping("/queryClientByPage")
     @RequiresPermissions("system:client:list")
     public R<Page<SysClientVo>> queryClientByPage(SysClientDTO sysClientDTO, @ApiParam(value = "每页显示", required = true) @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @ApiParam(value = "当前页", required = true) @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<SysClient> page = sysClientService.queryClientByPage(sysClientDTO, pageSize, pageNum);
-        Page<SysClientVo> sysClientVoPage = SysClientWrapper.build().pageVO(page);
-        return R.data(sysClientVoPage);
+        Page<SysClientVo> page = sysClientService.queryClientByPage(sysClientDTO, pageSize, pageNum);
+        return R.data(page);
     }
 
     @ApiOperation(value = "客户端新增")

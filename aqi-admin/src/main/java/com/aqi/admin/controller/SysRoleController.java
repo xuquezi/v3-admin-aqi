@@ -1,10 +1,8 @@
 package com.aqi.admin.controller;
 
-import com.aqi.admin.entity.base.SysRole;
 import com.aqi.admin.entity.dto.RoleMenuDTO;
 import com.aqi.admin.entity.dto.SysRoleDTO;
 import com.aqi.admin.entity.vo.SysRoleVo;
-import com.aqi.admin.entity.wrapper.SysRoleWrapper;
 import com.aqi.admin.service.ISysRoleService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.log.annotation.SysLog;
@@ -36,9 +34,8 @@ public class SysRoleController {
     @ApiOperation(value = "角色分页查询")
     @GetMapping("/page")
     public R<Page<SysRoleVo>> queryRolesByPage(SysRoleDTO sysRoleDTO, @ApiParam(value = "每页显示", required = true) @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @ApiParam(value = "当前页", required = true) @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<SysRole> page = sysRoleService.queryRolesByPage(sysRoleDTO, pageSize, pageNum);
-        Page<SysRoleVo> sysRoleVoPage = SysRoleWrapper.build().pageVO(page);
-        return R.data(sysRoleVoPage);
+        Page<SysRoleVo> page = sysRoleService.queryRolesByPage(sysRoleDTO, pageSize, pageNum);
+        return R.data(page);
     }
 
     @RequiresPermissions("system:role:delete")

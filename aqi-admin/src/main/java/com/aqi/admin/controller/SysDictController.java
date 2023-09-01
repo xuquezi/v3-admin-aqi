@@ -1,9 +1,7 @@
 package com.aqi.admin.controller;
 
-import com.aqi.admin.entity.base.SysDict;
 import com.aqi.admin.entity.dto.SysDictDTO;
 import com.aqi.admin.entity.vo.SysDictVo;
-import com.aqi.admin.entity.wrapper.SysDictWrapper;
 import com.aqi.admin.service.ISysDictService;
 import com.aqi.common.core.entity.R;
 import com.aqi.common.log.annotation.SysLog;
@@ -36,9 +34,8 @@ public class SysDictController {
     @ApiOperation(value = "分页查询")
     @GetMapping("/queryDictByPage")
     public R<Page<SysDictVo>> queryDictByPage(SysDictDTO sysDictDTO, @ApiParam(value = "每页显示", required = true) @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, @ApiParam(value = "当前页", required = true) @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum) {
-        Page<SysDict> page = sysDictService.queryDictByPage(sysDictDTO, pageSize, pageNum);
-        Page<SysDictVo> sysDictVoPage = SysDictWrapper.build().pageVO(page);
-        return R.data(sysDictVoPage);
+        Page<SysDictVo> page = sysDictService.queryDictByPage(sysDictDTO, pageSize, pageNum);
+        return R.data(page);
     }
 
     @RequiresPermissions("system:dict:update")

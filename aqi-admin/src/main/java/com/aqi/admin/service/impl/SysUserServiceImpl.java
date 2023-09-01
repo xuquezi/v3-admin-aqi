@@ -2,12 +2,14 @@ package com.aqi.admin.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.aqi.admin.converter.SysUserConverter;
 import com.aqi.admin.entity.base.SysRole;
 import com.aqi.admin.entity.base.SysUser;
 import com.aqi.admin.entity.base.SysUserRole;
 import com.aqi.admin.entity.dto.LoginDTO;
 import com.aqi.admin.entity.dto.SysUserDTO;
 import com.aqi.admin.entity.vo.CaptchaData;
+import com.aqi.admin.entity.vo.SysUserVo;
 import com.aqi.admin.mapper.SysUserMapper;
 import com.aqi.admin.service.ISysRoleService;
 import com.aqi.admin.service.ISysUserRoleService;
@@ -44,6 +46,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private final ISysRoleService roleService;
 
     private final RedisUtils redisUtils;
+
+    private final SysUserConverter sysUserConverter;
 
     // 账号锁定30分钟
     private static int LOCK_TIME = 30;
@@ -101,13 +105,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public Page<SysUser> queryUsersByPage(SysUserDTO sysUserDTO, Integer pageSize, Integer pageNum) {
+    public Page<SysUserVo> queryUsersByPage(SysUserDTO sysUserDTO, Integer pageSize, Integer pageNum) {
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(StrUtil.isNotBlank(sysUserDTO.getUserName()), SysUser::getUserName, sysUserDTO.getUserName());
         Long deptId = sysUserDTO.getDeptId();
         queryWrapper.eq(deptId != null, SysUser::getDeptId, deptId);
         Page<SysUser> page = page(new Page<SysUser>(pageNum, pageSize), queryWrapper);
-        return page;
+        Page<SysUserVo> sysUserVoPage = sysUserConverter.baseToVo(page);
+        return sysUserVoPage;
     }
 
     @Override
@@ -134,7 +139,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new RuntimeException("用户下必须有权限角色");
         }
         validateUpdateUser(sysUserDTO);
-        SysUser sysUser = BeanCopyUtils.copy(sysUserDTO, SysUser.class);
+        SysUser sysUser = sysUserConverter.dtoToBase(sysUserDTO);
         sysUser.setUserPassword(null);
         updateById(sysUser);
 
@@ -154,7 +159,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new RuntimeException("用户下必须有权限角色");
         }
         validateCreateUser(sysUserDTO);
-        SysUser sysUser = BeanCopyUtils.copy(sysUserDTO, SysUser.class);
+        SysUser sysUser = sysUserConverter.dtoToBase(sysUserDTO);
         sysUser.setUserPassword(PasswordUtil.encryptFromString(sysUserDTO.getUserPassword()));
         sysUser.setUserId(userId);
         save(sysUser);

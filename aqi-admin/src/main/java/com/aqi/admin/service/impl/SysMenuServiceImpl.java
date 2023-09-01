@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.aqi.admin.constant.AdminCommonConstant;
+import com.aqi.admin.converter.SysMenuConverter;
 import com.aqi.admin.entity.base.SysMenu;
 import com.aqi.admin.entity.base.SysRoleMenu;
 import com.aqi.admin.entity.dto.SysMenuDTO;
@@ -11,13 +12,11 @@ import com.aqi.admin.entity.vo.Meta;
 import com.aqi.admin.entity.vo.Option;
 import com.aqi.admin.entity.vo.Route;
 import com.aqi.admin.entity.vo.SysMenuVo;
-import com.aqi.admin.entity.wrapper.SysMenuWrapper;
 import com.aqi.admin.enums.MenuTypeEnum;
 import com.aqi.admin.mapper.SysMenuMapper;
 import com.aqi.admin.service.ISysMenuService;
 import com.aqi.admin.service.ISysRoleMenuService;
 import com.aqi.common.core.constant.CommonConstant;
-import com.aqi.common.core.utils.BeanCopyUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -37,6 +36,8 @@ import java.util.stream.Collectors;
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
     private final ISysRoleMenuService roleMenuService;
+
+    private final SysMenuConverter sysMenuConverter;
 
     @Override
     public List<Route> queryMenusByRoleIds(Long[] roleIds) {
@@ -164,7 +165,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 .stream()
                 .filter(menu -> menu.getMenuParentId().equals(parentId))
                 .map(entity -> {
-                    SysMenuVo sysMenuVo = SysMenuWrapper.build().entityVO(entity);
+                    SysMenuVo sysMenuVo = sysMenuConverter.baseToVo(entity);
                     List<SysMenuVo> children = recurMenus(entity.getMenuId(), menuList);
                     sysMenuVo.setChildren(children);
                     return sysMenuVo;
@@ -173,7 +174,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public void saveMenu(SysMenuDTO sysMenuDto) {
-        SysMenu sysMenu = BeanCopyUtils.copy(sysMenuDto, SysMenu.class);
+        SysMenu sysMenu = sysMenuConverter.dtoToBase(sysMenuDto);
 
         if (MenuTypeEnum.TYPE_DIR.getCode().equals(sysMenuDto.getMenuType())) {
             if (NumberUtil.equals(sysMenuDto.getMenuParentId(), 0) && !sysMenuDto.getMenuPath().startsWith("/")) {

@@ -13,8 +13,6 @@ public interface ISysDeptService extends IService<SysDept> {
 
     List<SysDeptVo> queryDeptList(SysDeptDTO sysDeptDTO);
 
-    List<SysDeptVo> getDepartList();
-
     void delDeptById(Long deptId);
 
     void saveDept(SysDeptDTO sysDeptDTO);
