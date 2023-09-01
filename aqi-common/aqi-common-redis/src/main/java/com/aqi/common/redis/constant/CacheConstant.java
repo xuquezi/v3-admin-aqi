@@ -12,4 +12,6 @@ public interface CacheConstant {
     String USER_LOCK = "user-lock:";
 
     String USER_LOCK_TIMES = "user-lock-times:";
+
+    String DICT_KEY = "dict:";
 }

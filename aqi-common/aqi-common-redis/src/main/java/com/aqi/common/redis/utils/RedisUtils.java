@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -559,5 +560,14 @@ public final class RedisUtils {
             log.error("lRemove异常 {}", e);
             return 0;
         }
+    }
+
+    public List<Object> batchGet(String key) {
+        List<Object> objects = new ArrayList<>();
+        Set<String> keys = redisTemplate.keys(key.concat("*"));
+        if (keys != null && key.length() > 0) {
+            objects = redisTemplate.opsForValue().multiGet(keys);
+        }
+        return objects;
     }
 }
